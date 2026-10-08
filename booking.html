@@ -1,0 +1,3186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Book Appointment | GOLDEN BLADE</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0f0f0f;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    :root {
+      --black: #0f0f0f;
+      --black2: #151515;
+      --black3: #1b1b1b;
+      --gold: #d4af37;
+      --gold2: #f9d371;
+      --white: #fff;
+      --muted: #929292;
+      --line: rgba(212,175,55,0.18);
+    }
+
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+      height: 78px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 6%;
+
+      background: rgba(15,15,15,0.95);
+      backdrop-filter: blur(15px);
+
+      border-bottom: 1px solid rgba(212,175,55,0.12);
+
+      transition: 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      box-shadow: 0 10px 35px rgba(0,0,0,0.45);
+    }
+
+    .logo {
+      color: #fff;
+      text-decoration: none;
+
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      font-family: 'Playfair Display', serif;
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .logo i {
+      color: var(--gold);
+      font-size: 25px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: #ddd;
+      text-decoration: none;
+      font-size: 13px;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--gold);
+    }
+
+    .nav-links a:not(.book-btn)::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 1px;
+      left: 0;
+      bottom: -6px;
+      background: var(--gold);
+      transition: 0.3s;
+    }
+
+    .nav-links a:not(.book-btn):hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .book-btn {
+      background: linear-gradient(135deg,#d4af37,#f9d371);
+      color: #111 !important;
+      padding: 11px 19px;
+      font-weight: 700 !important;
+    }
+
+    .menu-toggle {
+      display: none;
+      color: var(--gold);
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+
+    /* ================= HERO ================= */
+
+    .hero {
+      padding: 145px 6% 70px;
+      text-align: center;
+
+      background:
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(212,175,55,0.12),
+          transparent 40%
+        );
+
+      border-bottom: 1px solid rgba(212,175,55,0.08);
+    }
+
+    .eyebrow {
+      color: var(--gold2);
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(43px,7vw,70px);
+      line-height: 1.05;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: auto;
+      color: #929292;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+
+    /* ================= BOOKING AREA ================= */
+
+    .booking-area {
+      padding: 70px 5%;
+      background: #101010;
+    }
+
+    .booking-layout {
+      max-width: 1150px;
+      margin: auto;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 28px;
+    }
+
+
+    /* ================= COMMON CARD ================= */
+
+    .booking-card {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.025),
+          rgba(255,255,255,0.008)
+        );
+
+      border: 1px solid var(--line);
+
+      padding: 35px;
+
+      position: relative;
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.16);
+
+      transition: 0.3s ease;
+    }
+
+    .booking-card:hover {
+      border-color: rgba(212,175,55,0.28);
+    }
+
+    .card-heading {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .step-number {
+      width: 50px;
+      height: 50px;
+      min-width: 50px;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: linear-gradient(
+        135deg,
+        var(--gold),
+        var(--gold2)
+      );
+
+      color: #111;
+      font-weight: 700;
+      font-size: 14px;
+
+      box-shadow:
+        0 10px 30px rgba(212,175,55,0.13);
+    }
+
+    .card-heading h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 33px;
+      line-height: 1.1;
+    }
+
+    .card-heading p {
+      color: #777;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+
+    /* ================= DETAILS - FIRST ================= */
+
+    .details-card {
+      order: 1;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .input-group {
+      margin-bottom: 2px;
+    }
+
+    .input-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .input-group label {
+      display: block;
+
+      color: #aaa;
+
+      font-size: 11px;
+      letter-spacing: 1.4px;
+
+      text-transform: uppercase;
+
+      margin-bottom: 8px;
+    }
+
+    .input-group input,
+    .input-group textarea {
+      width: 100%;
+
+      padding: 15px 16px;
+
+      background: #0d0d0d;
+
+      color: #fff;
+
+      border: 1px solid rgba(255,255,255,0.09);
+
+      outline: none;
+
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+
+      transition: 0.3s ease;
+    }
+
+    .input-group textarea {
+      min-height: 115px;
+      resize: vertical;
+    }
+
+    .input-group input::placeholder,
+    .input-group textarea::placeholder {
+      color: #555;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow:
+        0 0 0 2px rgba(212,175,55,0.05);
+    }
+
+    .input-error {
+      border-color: #b95a5a !important;
+      box-shadow: 0 0 0 2px rgba(185,90,90,0.05) !important;
+    }
+
+    .field-error {
+      display: none;
+      color: #d98787;
+      font-size: 10px;
+      margin-top: 6px;
+    }
+
+    .field-error.show {
+      display: block;
+    }
+
+
+    /* ================= SERVICE ================= */
+
+    .service-card {
+      order: 2;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 14px;
+    }
+
+    .choice {
+      position: relative;
+    }
+
+    .choice input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .choice label {
+      display: block;
+
+      padding: 22px;
+
+      min-height: 105px;
+
+      background: #111;
+
+      border: 1px solid rgba(255,255,255,0.07);
+
+      cursor: pointer;
+
+      transition: 0.3s ease;
+    }
+
+    .choice label:hover {
+      border-color: rgba(212,175,55,0.35);
+      transform: translateY(-2px);
+    }
+
+    .choice input:checked + label {
+      border-color: var(--gold);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(212,175,55,0.09),
+          rgba(212,175,55,0.025)
+        );
+
+      box-shadow:
+        inset 0 0 0 1px rgba(212,175,55,0.12);
+    }
+
+    .choice-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+    }
+
+    .choice-title span {
+      color: var(--gold2);
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .choice-meta {
+      color: #777;
+      font-size: 11px;
+      margin-top: 10px;
+    }
+
+    .choice-meta i {
+      color: var(--gold);
+      margin-right: 5px;
+    }
+
+
+    /* ================= BARBER ================= */
+
+    .barber-card {
+      order: 3;
+    }
+
+    .barber-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 15px;
+    }
+
+    .barber-choice {
+      position: relative;
+    }
+
+    .barber-choice input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .barber-choice label {
+      display: block;
+      overflow: hidden;
+      cursor: pointer;
+
+      background: #111;
+
+      border: 1px solid rgba(255,255,255,0.07);
+
+      transition: 0.3s ease;
+    }
+
+    .barber-choice label:hover {
+      border-color: rgba(212,175,55,0.4);
+      transform: translateY(-3px);
+    }
+
+    .barber-choice input:checked + label {
+      border-color: var(--gold);
+
+      box-shadow:
+        0 12px 35px rgba(212,175,55,0.08);
+    }
+
+    .barber-image {
+      height: 210px;
+      overflow: hidden;
+    }
+
+    .barber-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: 0.5s;
+    }
+
+    .barber-choice label:hover img {
+      transform: scale(1.04);
+    }
+
+    .barber-info {
+      padding: 16px;
+    }
+
+    .barber-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      margin-bottom: 5px;
+    }
+
+    .barber-info p {
+      color: #777;
+      font-size: 11px;
+    }
+
+
+    /* ================= DATE ================= */
+
+    .date-card {
+      order: 4;
+    }
+
+    .calendar {
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 20px;
+    }
+
+    .calendar-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 20px;
+    }
+
+    .calendar-top h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold2);
+      font-size: 22px;
+    }
+
+    .calendar-month {
+      color: #777;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .calendar-weekdays,
+    .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7,1fr);
+      gap: 7px;
+    }
+
+    .calendar-weekdays div {
+      text-align: center;
+      color: #666;
+      font-size: 9px;
+      padding-bottom: 5px;
+    }
+
+    .day {
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #aaa;
+
+      border: 1px solid transparent;
+
+      cursor: pointer;
+
+      font-size: 12px;
+
+      transition: 0.25s;
+    }
+
+    .day:hover {
+      border-color: rgba(212,175,55,0.4);
+      color: #fff;
+    }
+
+    .day.empty {
+      cursor: default;
+    }
+
+    .day.selected {
+      background: linear-gradient(
+        135deg,
+        var(--gold),
+        var(--gold2)
+      );
+
+      color: #111;
+
+      font-weight: 700;
+    }
+
+
+    /* ================= TIME ================= */
+
+    .time-card {
+      order: 5;
+    }
+
+    .time-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 10px;
+    }
+
+    .time-btn {
+      padding: 13px 8px;
+
+      background: #111;
+
+      border: 1px solid rgba(255,255,255,0.07);
+
+      color: #aaa;
+
+      cursor: pointer;
+
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+
+      transition: 0.25s;
+    }
+
+    .time-btn:hover {
+      border-color: rgba(212,175,55,0.4);
+      color: #fff;
+    }
+
+    .time-btn.selected {
+      background: linear-gradient(
+        135deg,
+        var(--gold),
+        var(--gold2)
+      );
+
+      border-color: var(--gold);
+
+      color: #111;
+      font-weight: 700;
+    }
+
+
+    /* ================= SUMMARY - LAST ================= */
+
+    .summary-card {
+      order: 6;
+
+      background:
+        linear-gradient(
+          145deg,
+          #15150f,
+          #101010
+        );
+
+      border-color: rgba(212,175,55,0.3);
+    }
+
+    .summary-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+
+      padding-bottom: 25px;
+
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+
+      margin-bottom: 20px;
+    }
+
+    .summary-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+    }
+
+    .summary-header p {
+      color: var(--gold2);
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 16px 0;
+
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .summary-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .summary-label {
+      color: #777;
+      font-size: 12px;
+    }
+
+    .summary-value {
+      color: #ddd;
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .summary-total {
+      margin-top: 10px;
+      padding-top: 22px;
+
+      border-top: 1px solid rgba(212,175,55,0.25);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .summary-total span:first-child {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .total-price {
+      color: var(--gold2);
+      font-family: 'Playfair Display', serif;
+      font-size: 46px;
+    }
+
+    .confirm-btn {
+      width: 100%;
+      border: none;
+
+      margin-top: 25px;
+
+      padding: 17px;
+
+      background: linear-gradient(
+        135deg,
+        #f9d371,
+        #d4af37
+      );
+
+      color: #111;
+
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      letter-spacing: 0.7px;
+
+      cursor: pointer;
+
+      transition: 0.3s ease;
+    }
+
+    .confirm-btn:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 12px 30px rgba(212,175,55,0.2);
+    }
+
+    .whatsapp-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      margin-top: 17px;
+
+      color: #666;
+
+      font-size: 10px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .whatsapp-note i {
+      color: #25d366;
+      font-size: 14px;
+    }
+
+
+    /* ================= PREMIUM MODAL ================= */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+
+      z-index: 5000;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 22px;
+
+      background: rgba(0,0,0,0.82);
+
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-overlay.show {
+      display: flex;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .premium-modal {
+      width: min(420px,100%);
+
+      background:
+        linear-gradient(
+          145deg,
+          #19170f,
+          #101010
+        );
+
+      border: 1px solid rgba(212,175,55,0.4);
+
+      box-shadow:
+        0 30px 100px rgba(0,0,0,0.7);
+
+      padding: 35px 30px;
+
+      text-align: center;
+
+      position: relative;
+
+      animation: modalIn 0.35s ease;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 13px;
+      right: 15px;
+
+      width: 32px;
+      height: 32px;
+
+      border-radius: 50%;
+
+      border: 1px solid rgba(255,255,255,0.1);
+
+      background: transparent;
+
+      color: #888;
+
+      cursor: pointer;
+
+      transition: 0.25s;
+    }
+
+    .modal-close:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .modal-icon {
+      width: 68px;
+      height: 68px;
+
+      border-radius: 50%;
+
+      margin: 0 auto 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--gold),
+          var(--gold2)
+        );
+
+      color: #111;
+
+      font-size: 25px;
+
+      box-shadow:
+        0 10px 35px rgba(212,175,55,0.15);
+    }
+
+    .modal-eyebrow {
+      color: var(--gold2);
+
+      font-size: 10px;
+
+      letter-spacing: 4px;
+
+      text-transform: uppercase;
+
+      margin-bottom: 9px;
+    }
+
+    .premium-modal h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 29px;
+
+      margin-bottom: 10px;
+    }
+
+    .premium-modal p {
+      color: #888;
+      font-size: 12px;
+      line-height: 1.8;
+
+      max-width: 310px;
+
+      margin: auto;
+    }
+
+    .modal-action {
+      width: 100%;
+
+      margin-top: 23px;
+
+      padding: 13px;
+
+      border: none;
+
+      background: linear-gradient(
+        135deg,
+        var(--gold2),
+        var(--gold)
+      );
+
+      color: #111;
+
+      font-weight: 700;
+
+      font-family: 'Poppins', sans-serif;
+
+      cursor: pointer;
+    }
+
+
+    /* ================= SUCCESS MODAL ================= */
+
+    .success-modal .modal-icon {
+      background: #142519;
+      color: #62d982;
+      border: 1px solid rgba(98,217,130,0.35);
+    }
+
+    .success-modal .modal-eyebrow {
+      color: #62d982;
+    }
+
+    .success-details {
+      margin-top: 20px;
+
+      padding: 15px;
+
+      background: rgba(255,255,255,0.025);
+
+      border: 1px solid rgba(255,255,255,0.06);
+
+      text-align: left;
+    }
+
+    .success-detail {
+      display: flex;
+      justify-content: space-between;
+
+      padding: 7px 0;
+
+      font-size: 10px;
+
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .success-detail:last-child {
+      border-bottom: none;
+    }
+
+    .success-detail span:first-child {
+      color: #666;
+    }
+
+    .success-detail span:last-child {
+      color: #ddd;
+    }
+
+
+    /* ================= ANIMATIONS ================= */
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.7s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+
+    /* ================= RESPONSIVE ================= */
+
+    @media(max-width:900px) {
+
+      .nav-links {
+        position: absolute;
+
+        top: 78px;
+        right: -100%;
+
+        width: 270px;
+
+        padding: 25px;
+
+        background: #121212;
+
+        border-left: 1px solid rgba(212,175,55,0.15);
+        border-bottom: 1px solid rgba(212,175,55,0.15);
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 22px;
+
+        transition: 0.35s ease;
+      }
+
+      .nav-links.open {
+        right: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .barber-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .barber-image {
+        height: 260px;
+      }
+
+    }
+
+
+    @media(max-width:600px) {
+
+      .navbar {
+        height: 70px;
+        padding: 0 5%;
+      }
+
+      .logo {
+        font-size: 19px;
+      }
+
+      .logo i {
+        font-size: 21px;
+      }
+
+      .nav-links {
+        top: 70px;
+        width: 100%;
+        right: -100%;
+      }
+
+      .hero {
+        padding: 120px 6% 60px;
+      }
+
+      .hero h1 {
+        font-size: 43px;
+      }
+
+      .booking-area {
+        padding: 40px 4%;
+      }
+
+      .booking-card {
+        padding: 24px 18px;
+      }
+
+      .card-heading {
+        gap: 13px;
+      }
+
+      .step-number {
+        width: 43px;
+        height: 43px;
+        min-width: 43px;
+      }
+
+      .card-heading h2 {
+        font-size: 27px;
+      }
+
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .input-group.full {
+        grid-column: auto;
+      }
+
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .barber-image {
+        height: 240px;
+      }
+
+      .calendar {
+        padding: 13px 9px;
+      }
+
+      .calendar-weekdays,
+      .calendar-days {
+        gap: 3px;
+      }
+
+      .day {
+        height: 38px;
+        font-size: 11px;
+      }
+
+      .time-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .summary-header h2 {
+        font-size: 29px;
+      }
+
+      .summary-row {
+        padding: 14px 0;
+      }
+
+      .summary-value {
+        max-width: 55%;
+      }
+
+      .total-price {
+        font-size: 39px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- ================= NAVBAR ================= -->
+
+  <nav class="navbar" id="navbar">
+
+    <a href="index.html" class="logo">
+      <i class="fa-solid fa-scissors"></i>
+      GOLDEN BLADE
+    </a>
+
+    <div class="nav-links" id="navLinks">
+
+      <a href="index.html">Home</a>
+
+      <a href="services.html">Services</a>
+
+      <a href="about.html">About</a>
+
+      <a href="gallery.html">Gallery</a>
+
+      <a href="contact.html">Contact</a>
+
+      <a href="booking.html" class="book-btn active">
+        BOOK NOW
+      </a>
+
+    </div>
+
+    <div class="menu-toggle" id="menuToggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+
+  </nav>
+
+
+
+  <!-- ================= HERO ================= -->
+
+  <section class="hero">
+
+    <div class="reveal">
+
+      <div class="eyebrow">
+        GOLDEN BLADE
+      </div>
+
+      <h1>
+        Book Your <span>Appointment.</span>
+      </h1>
+
+      <p>
+        Choose your service, barber, date and time.
+        We'll take care of the rest.
+      </p>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ================= BOOKING ================= -->
+
+  <section class="booking-area">
+
+    <div class="booking-layout">
+
+
+      <!-- =========================================
+           01 — YOUR DETAILS
+      ========================================== -->
+
+      <div class="booking-card details-card reveal">
+
+        <div class="card-heading">
+
+          <div class="step-number">
+            01
+          </div>
+
+          <div>
+
+            <h2>Your Details</h2>
+
+            <p>
+              Tell us who we're preparing for.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="details-grid">
+
+
+          <div class="input-group">
+
+            <label>
+              Full Name *
+            </label>
+
+            <input
+              type="text"
+              id="customerName"
+              placeholder="John Smith"
+            >
+
+            <div
+              class="field-error"
+              id="nameError"
+            >
+              Please enter your full name.
+            </div>
+
+          </div>
+
+
+          <div class="input-group">
+
+            <label>
+              Phone Number *
+            </label>
+
+            <input
+              type="tel"
+              id="customerPhone"
+              placeholder="+1 555 000 0000"
+            >
+
+            <div
+              class="field-error"
+              id="phoneError"
+            >
+              Please enter your phone number.
+            </div>
+
+          </div>
+
+
+          <div class="input-group">
+
+            <label>
+              Email Address
+            </label>
+
+            <input
+              type="email"
+              id="customerEmail"
+              placeholder="john@email.com"
+            >
+
+          </div>
+
+
+          <div class="input-group">
+
+            <label>
+              Instagram
+            </label>
+
+            <input
+              type="text"
+              id="customerInstagram"
+              placeholder="@username"
+            >
+
+          </div>
+
+
+          <div class="input-group full">
+
+            <label>
+              Special Request
+            </label>
+
+            <textarea
+              id="specialRequest"
+              placeholder="Any special request or note for your barber..."
+            ></textarea>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =========================================
+           02 — SERVICE
+      ========================================== -->
+
+      <div class="booking-card service-card reveal">
+
+        <div class="card-heading">
+
+          <div class="step-number">
+            02
+          </div>
+
+          <div>
+
+            <h2>Choose Your Service</h2>
+
+            <p>
+              Select the service that's right for you.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="options-grid">
+
+
+          <div class="choice">
+
+            <input
+              type="radio"
+              name="service"
+              id="service1"
+              value="Classic Haircut"
+              data-price="45"
+              data-duration="30–40 mins"
+              checked
+            >
+
+            <label for="service1">
+
+              <div class="choice-title">
+                Classic Haircut
+                <span>$45</span>
+              </div>
+
+              <div class="choice-meta">
+                <i class="fa-regular fa-clock"></i>
+                30–40 mins
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="choice">
+
+            <input
+              type="radio"
+              name="service"
+              id="service2"
+              value="Beard Grooming"
+              data-price="35"
+              data-duration="20–30 mins"
+            >
+
+            <label for="service2">
+
+              <div class="choice-title">
+                Beard Grooming
+                <span>$35</span>
+              </div>
+
+              <div class="choice-meta">
+                <i class="fa-regular fa-clock"></i>
+                20–30 mins
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="choice">
+
+            <input
+              type="radio"
+              name="service"
+              id="service3"
+              value="Hot Towel Shave"
+              data-price="40"
+              data-duration="30 mins"
+            >
+
+            <label for="service3">
+
+              <div class="choice-title">
+                Hot Towel Shave
+                <span>$40</span>
+              </div>
+
+              <div class="choice-meta">
+                <i class="fa-regular fa-clock"></i>
+                30 mins
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="choice">
+
+            <input
+              type="radio"
+              name="service"
+              id="service4"
+              value="Kids Cut"
+              data-price="30"
+              data-duration="20–30 mins"
+            >
+
+            <label for="service4">
+
+              <div class="choice-title">
+                Kids Cut
+                <span>$30</span>
+              </div>
+
+              <div class="choice-meta">
+                <i class="fa-regular fa-clock"></i>
+                20–30 mins
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="choice">
+
+            <input
+              type="radio"
+              name="service"
+              id="service5"
+              value="Hair Color"
+              data-price="60"
+              data-duration="60–90 mins"
+            >
+
+            <label for="service5">
+
+              <div class="choice-title">
+                Hair Color
+                <span>$60</span>
+              </div>
+
+              <div class="choice-meta">
+                <i class="fa-regular fa-clock"></i>
+                60–90 mins
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="choice">
+
+            <input
+              type="radio"
+              name="service"
+              id="service6"
+              value="Father & Son"
+              data-price="65"
+              data-duration="50–60 mins"
+            >
+
+            <label for="service6">
+
+              <div class="choice-title">
+                Father & Son
+                <span>$65</span>
+              </div>
+
+              <div class="choice-meta">
+                <i class="fa-regular fa-clock"></i>
+                50–60 mins
+              </div>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =========================================
+           03 — BARBER
+      ========================================== -->
+
+      <div class="booking-card barber-card reveal">
+
+        <div class="card-heading">
+
+          <div class="step-number">
+            03
+          </div>
+
+          <div>
+
+            <h2>Choose Your Barber</h2>
+
+            <p>
+              Pick the barber you'd like to visit.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="barber-grid">
+
+
+          <div class="barber-choice">
+
+            <input
+              type="radio"
+              name="barber"
+              id="barber1"
+              value="Marcus Chen"
+              checked
+            >
+
+            <label for="barber1">
+
+              <div class="barber-image">
+
+                <img
+                  src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=700&q=80"
+                  alt="Marcus Chen"
+                >
+
+              </div>
+
+              <div class="barber-info">
+
+                <h3>Marcus Chen</h3>
+
+                <p>
+                  Master Barber • 8 Years
+                </p>
+
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="barber-choice">
+
+            <input
+              type="radio"
+              name="barber"
+              id="barber2"
+              value="Jordan Rivera"
+            >
+
+            <label for="barber2">
+
+              <div class="barber-image">
+
+                <img
+                  src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=700&q=80"
+                  alt="Jordan Rivera"
+                >
+
+              </div>
+
+              <div class="barber-info">
+
+                <h3>Jordan Rivera</h3>
+
+                <p>
+                  Beard Specialist • 6 Years
+                </p>
+
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="barber-choice">
+
+            <input
+              type="radio"
+              name="barber"
+              id="barber3"
+              value="Liam Williams"
+            >
+
+            <label for="barber3">
+
+              <div class="barber-image">
+
+                <img
+                  src="https://images.unsplash.com/photo-1599351431202-1e0f0d9d1b8d?auto=format&fit=crop&w=700&q=80"
+                  alt="Liam Williams"
+                >
+
+              </div>
+
+              <div class="barber-info">
+
+                <h3>Liam Williams</h3>
+
+                <p>
+                  Color & Styling • 5 Years
+                </p>
+
+              </div>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =========================================
+           04 — DATE
+      ========================================== -->
+
+      <div class="booking-card date-card reveal">
+
+        <div class="card-heading">
+
+          <div class="step-number">
+            04
+          </div>
+
+          <div>
+
+            <h2>Choose Your Date</h2>
+
+            <p>
+              Select your preferred appointment date.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="calendar">
+
+          <div class="calendar-top">
+
+            <div>
+              <h3>October 2024</h3>
+
+              <div class="calendar-month">
+                Select a day
+              </div>
+            </div>
+
+            <i
+              class="fa-regular fa-calendar"
+              style="color:#d4af37;font-size:22px;"
+            ></i>
+
+          </div>
+
+
+          <div class="calendar-weekdays">
+
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+
+          </div>
+
+
+          <div
+            class="calendar-days"
+            id="calendarDays"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =========================================
+           05 — TIME
+      ========================================== -->
+
+      <div class="booking-card time-card reveal">
+
+        <div class="card-heading">
+
+          <div class="step-number">
+            05
+          </div>
+
+          <div>
+
+            <h2>Choose Your Time</h2>
+
+            <p>
+              Select an available appointment slot.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="time-grid"
+          id="timeGrid"
+        ></div>
+
+      </div>
+
+
+
+      <!-- =========================================
+           06 — SUMMARY LAST
+      ========================================== -->
+
+      <div
+        class="booking-card summary-card reveal"
+        id="summaryCard"
+      >
+
+        <div class="summary-header">
+
+          <div>
+
+            <p>
+              Booking Summary
+            </p>
+
+            <h2>
+              Your Appointment
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="summary-row">
+
+          <span class="summary-label">
+            Service
+          </span>
+
+          <span
+            class="summary-value"
+            id="summaryService"
+          >
+            Classic Haircut
+          </span>
+
+        </div>
+
+
+        <div class="summary-row">
+
+          <span class="summary-label">
+            Barber
+          </span>
+
+          <span
+            class="summary-value"
+            id="summaryBarber"
+          >
+            Marcus Chen
+          </span>
+
+        </div>
+
+
+        <div class="summary-row">
+
+          <span class="summary-label">
+            Date
+          </span>
+
+          <span
+            class="summary-value"
+            id="summaryDate"
+          >
+            Select a date
+          </span>
+
+        </div>
+
+
+        <div class="summary-row">
+
+          <span class="summary-label">
+            Time
+          </span>
+
+          <span
+            class="summary-value"
+            id="summaryTime"
+          >
+            Select a time
+          </span>
+
+        </div>
+
+
+        <div class="summary-row">
+
+          <span class="summary-label">
+            Duration
+          </span>
+
+          <span
+            class="summary-value"
+            id="summaryDuration"
+          >
+            30–40 mins
+          </span>
+
+        </div>
+
+
+        <div class="summary-total">
+
+          <span>
+            Total
+          </span>
+
+          <span
+            class="total-price"
+            id="summaryPrice"
+          >
+            $45
+          </span>
+
+        </div>
+
+
+        <button
+          class="confirm-btn"
+          id="confirmBooking"
+        >
+          CONFIRM BOOKING
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+
+        <div class="whatsapp-note">
+
+          <i class="fa-brands fa-whatsapp"></i>
+
+          <span>
+            After confirmation, your booking details
+            can be sent directly through WhatsApp.
+          </span>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ================= PREMIUM VALIDATION MODAL ================= -->
+
+  <div
+    class="modal-overlay"
+    id="validationModal"
+  >
+
+    <div class="premium-modal">
+
+      <button
+        class="modal-close"
+        id="closeValidation"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+
+      <div class="modal-icon">
+        <i class="fa-solid fa-user"></i>
+      </div>
+
+
+      <div class="modal-eyebrow">
+        Almost There
+      </div>
+
+
+      <h3>
+        We Need Your Details
+      </h3>
+
+
+      <p id="validationMessage">
+        Please enter your name before confirming your appointment.
+      </p>
+
+
+      <button
+        class="modal-action"
+        id="validationAction"
+      >
+        GOT IT
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ================= SUCCESS MODAL ================= -->
+
+  <div
+    class="modal-overlay"
+    id="successModal"
+  >
+
+    <div class="premium-modal success-modal">
+
+      <button
+        class="modal-close"
+        id="closeSuccess"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+
+      <div class="modal-icon">
+        <i class="fa-solid fa-check"></i>
+      </div>
+
+
+      <div class="modal-eyebrow">
+        Appointment Ready
+      </div>
+
+
+      <h3>
+        You're All Set
+      </h3>
+
+
+      <p>
+        Your appointment details are ready.
+        Send them to GOLDEN BLADE through WhatsApp
+        to complete the booking.
+      </p>
+
+
+      <div class="success-details">
+
+        <div class="success-detail">
+
+          <span>Service</span>
+
+          <span id="successService">
+            Classic Haircut
+          </span>
+
+        </div>
+
+
+        <div class="success-detail">
+
+          <span>Barber</span>
+
+          <span id="successBarber">
+            Marcus Chen
+          </span>
+
+        </div>
+
+
+        <div class="success-detail">
+
+          <span>Date</span>
+
+          <span id="successDate">
+            —
+          </span>
+
+        </div>
+
+
+        <div class="success-detail">
+
+          <span>Time</span>
+
+          <span id="successTime">
+            —
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="modal-action"
+        id="whatsappButton"
+      >
+        <i class="fa-brands fa-whatsapp"></i>
+        SEND VIA WHATSAPP
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ================= JAVASCRIPT ================= -->
+
+  <script>
+
+
+    /* =========================================
+       MOBILE MENU
+    ========================================== */
+
+    const menuToggle =
+      document.getElementById("menuToggle");
+
+    const navLinks =
+      document.getElementById("navLinks");
+
+
+    menuToggle.addEventListener("click", () => {
+
+      navLinks.classList.toggle("open");
+
+      const icon =
+        menuToggle.querySelector("i");
+
+      if (navLinks.classList.contains("open")) {
+
+        icon.classList.remove("fa-bars");
+        icon.classList.add("fa-xmark");
+
+      } else {
+
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
+
+      }
+
+    });
+
+
+    document
+      .querySelectorAll(".nav-links a")
+      .forEach(link => {
+
+        link.addEventListener("click", () => {
+
+          navLinks.classList.remove("open");
+
+          const icon =
+            menuToggle.querySelector("i");
+
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+
+        });
+
+      });
+
+
+
+    /* =========================================
+       NAVBAR SCROLL
+    ========================================== */
+
+    const navbar =
+      document.getElementById("navbar");
+
+    window.addEventListener("scroll", () => {
+
+      if (window.scrollY > 30) {
+
+        navbar.classList.add("scrolled");
+
+      } else {
+
+        navbar.classList.remove("scrolled");
+
+      }
+
+    });
+
+
+
+    /* =========================================
+       REVEAL ANIMATION
+    ========================================== */
+
+    const revealElements =
+      document.querySelectorAll(".reveal");
+
+    const revealObserver =
+      new IntersectionObserver(
+
+        entries => {
+
+          entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add("show");
+
+              revealObserver.unobserve(
+                entry.target
+              );
+
+            }
+
+          });
+
+        },
+
+        {
+          threshold: 0.08
+        }
+
+      );
+
+
+    revealElements.forEach(element => {
+
+      revealObserver.observe(element);
+
+    });
+
+
+
+    /* =========================================
+       BOOKING DATA
+    ========================================== */
+
+    let selectedDate = "";
+
+    let selectedTime = "";
+
+    let selectedService =
+      "Classic Haircut";
+
+    let selectedPrice = "45";
+
+    let selectedDuration =
+      "30–40 mins";
+
+    let selectedBarber =
+      "Marcus Chen";
+
+
+
+    /* =========================================
+       SERVICE SELECTION
+    ========================================== */
+
+    const serviceInputs =
+      document.querySelectorAll(
+        'input[name="service"]'
+      );
+
+
+    serviceInputs.forEach(input => {
+
+      input.addEventListener("change", () => {
+
+        selectedService =
+          input.value;
+
+        selectedPrice =
+          input.dataset.price;
+
+        selectedDuration =
+          input.dataset.duration;
+
+        updateSummary();
+
+      });
+
+    });
+
+
+
+    /* =========================================
+       BARBER SELECTION
+    ========================================== */
+
+    const barberInputs =
+      document.querySelectorAll(
+        'input[name="barber"]'
+      );
+
+
+    barberInputs.forEach(input => {
+
+      input.addEventListener("change", () => {
+
+        selectedBarber =
+          input.value;
+
+        updateSummary();
+
+      });
+
+    });
+
+
+
+    /* =========================================
+       CALENDAR
+    ========================================== */
+
+    const calendarDays =
+      document.getElementById(
+        "calendarDays"
+      );
+
+
+    const year = 2024;
+
+    const month = 9;
+    // October = 9 because JavaScript months
+    // start from 0.
+
+
+    const firstDay =
+      new Date(
+        year,
+        month,
+        1
+      ).getDay();
+
+
+    const totalDays =
+      new Date(
+        year,
+        month + 1,
+        0
+      ).getDate();
+
+
+    for (
+      let i = 0;
+      i < firstDay;
+      i++
+    ) {
+
+      const empty =
+        document.createElement("div");
+
+      empty.className = "day empty";
+
+      calendarDays.appendChild(empty);
+
+    }
+
+
+    for (
+      let day = 1;
+      day <= totalDays;
+      day++
+    ) {
+
+      const dayElement =
+        document.createElement("div");
+
+      dayElement.className = "day";
+
+      dayElement.textContent = day;
+
+      dayElement.addEventListener(
+        "click",
+        () => {
+
+          document
+            .querySelectorAll(".day")
+            .forEach(d => {
+
+              d.classList.remove(
+                "selected"
+              );
+
+            });
+
+
+          dayElement.classList.add(
+            "selected"
+          );
+
+
+          selectedDate =
+            `${day} October 2024`;
+
+
+          updateSummary();
+
+        }
+      );
+
+
+      calendarDays.appendChild(
+        dayElement
+      );
+
+    }
+
+
+
+    /* =========================================
+       TIME SLOTS
+    ========================================== */
+
+    const timeGrid =
+      document.getElementById(
+        "timeGrid"
+      );
+
+
+    const times = [
+
+      "9:00 AM",
+      "9:30 AM",
+      "10:00 AM",
+      "10:30 AM",
+
+      "11:00 AM",
+      "11:30 AM",
+      "12:00 PM",
+      "12:30 PM",
+
+      "1:00 PM",
+      "1:30 PM",
+      "2:00 PM",
+      "2:30 PM",
+
+      "3:00 PM",
+      "3:30 PM"
+
+    ];
+
+
+    times.forEach(time => {
+
+      const button =
+        document.createElement("button");
+
+      button.className =
+        "time-btn";
+
+      button.type =
+        "button";
+
+      button.textContent =
+        time;
+
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          document
+            .querySelectorAll(".time-btn")
+            .forEach(btn => {
+
+              btn.classList.remove(
+                "selected"
+              );
+
+            });
+
+
+          button.classList.add(
+            "selected"
+          );
+
+
+          selectedTime =
+            time;
+
+
+          updateSummary();
+
+        }
+      );
+
+
+      timeGrid.appendChild(button);
+
+    });
+
+
+
+    /* =========================================
+       SUMMARY UPDATE
+    ========================================== */
+
+    function updateSummary() {
+
+      document.getElementById(
+        "summaryService"
+      ).textContent =
+        selectedService;
+
+
+      document.getElementById(
+        "summaryBarber"
+      ).textContent =
+        selectedBarber;
+
+
+      document.getElementById(
+        "summaryDate"
+      ).textContent =
+        selectedDate ||
+        "Select a date";
+
+
+      document.getElementById(
+        "summaryTime"
+      ).textContent =
+        selectedTime ||
+        "Select a time";
+
+
+      document.getElementById(
+        "summaryDuration"
+      ).textContent =
+        selectedDuration;
+
+
+      document.getElementById(
+        "summaryPrice"
+      ).textContent =
+        "$" + selectedPrice;
+
+    }
+
+
+    updateSummary();
+
+
+
+    /* =========================================
+       URL SERVICE CONNECTION
+    ========================================== */
+
+    const urlParams =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const urlService =
+      urlParams.get("service");
+
+
+    if (urlService) {
+
+      serviceInputs.forEach(input => {
+
+        if (
+          input.value.toLowerCase() ===
+          urlService.toLowerCase()
+        ) {
+
+          input.checked = true;
+
+          selectedService =
+            input.value;
+
+          selectedPrice =
+            input.dataset.price;
+
+          selectedDuration =
+            input.dataset.duration;
+
+        }
+
+      });
+
+      updateSummary();
+
+    }
+
+
+
+    /* =========================================
+       VALIDATION MODAL
+    ========================================== */
+
+    const validationModal =
+      document.getElementById(
+        "validationModal"
+      );
+
+    const validationMessage =
+      document.getElementById(
+        "validationMessage"
+      );
+
+
+    const closeValidation =
+      document.getElementById(
+        "closeValidation"
+      );
+
+
+    const validationAction =
+      document.getElementById(
+        "validationAction"
+      );
+
+
+    function showValidation() {
+
+      validationMessage.textContent =
+        String(arguments[0]);
+
+      validationModal.classList.add(
+        "show"
+      );
+
+    }
+
+
+    function hideValidation() {
+
+      validationModal.classList.remove(
+        "show"
+      );
+
+    }
+
+
+    closeValidation.addEventListener(
+      "click",
+      hideValidation
+    );
+
+
+    validationAction.addEventListener(
+      "click",
+      hideValidation
+    );
+
+
+    validationModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          validationModal
+        ) {
+
+          hideValidation();
+
+        }
+
+      }
+    );
+
+
+
+    /* =========================================
+       SUCCESS MODAL
+    ========================================== */
+
+    const successModal =
+      document.getElementById(
+        "successModal"
+      );
+
+
+    const closeSuccess =
+      document.getElementById(
+        "closeSuccess"
+      );
+
+
+    closeSuccess.addEventListener(
+      "click",
+      () => {
+
+        successModal.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+
+    successModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          successModal
+        ) {
+
+          successModal.classList.remove(
+            "show"
+          );
+
+        }
+
+      }
+    );
+
+
+
+    /* =========================================
+       CONFIRM BOOKING
+    ========================================== */
+
+    const confirmBooking =
+      document.getElementById(
+        "confirmBooking"
+      );
+
+
+    confirmBooking.addEventListener(
+      "click",
+      () => {
+
+
+        const name =
+          document
+            .getElementById(
+              "customerName"
+            )
+            .value
+            .trim();
+
+
+        const phone =
+          document
+            .getElementById(
+              "customerPhone"
+            )
+            .value
+            .trim();
+
+
+        const email =
+          document
+            .getElementById(
+              "customerEmail"
+            )
+            .value
+            .trim();
+
+
+        const instagram =
+          document
+            .getElementById(
+              "customerInstagram"
+            )
+            .value
+            .trim();
+
+
+        const request =
+          document
+            .getElementById(
+              "specialRequest"
+            )
+            .value
+            .trim();
+
+
+
+        /* Clear old errors */
+
+        document
+          .getElementById(
+            "customerName"
+          )
+          .classList.remove(
+            "input-error"
+          );
+
+
+        document
+          .getElementById(
+            "customerPhone"
+          )
+          .classList.remove(
+            "input-error"
+          );
+
+
+        document
+          .getElementById(
+            "nameError"
+          )
+          .classList.remove(
+            "show"
+          );
+
+
+        document
+          .getElementById(
+            "phoneError"
+          )
+          .classList.remove(
+            "show"
+          );
+
+
+
+        /* Name validation */
+
+        if (!name) {
+
+          document
+            .getElementById(
+              "customerName"
+            )
+            .classList.add(
+              "input-error"
+            );
+
+
+          document
+            .getElementById(
+              "nameError"
+            )
+            .classList.add(
+              "show"
+            );
+
+
+          showValidation(
+            "Please enter your name so we know who we're preparing the appointment for."
+          );
+
+
+          document
+            .getElementById(
+              "customerName"
+            )
+            .focus();
+
+
+          return;
+
+        }
+
+
+
+        /* Phone validation */
+
+        if (!phone) {
+
+          document
+            .getElementById(
+              "customerPhone"
+            )
+            .classList.add(
+              "input-error"
+            );
+
+
+          document
+            .getElementById(
+              "phoneError"
+            )
+            .classList.add(
+              "show"
+            );
+
+
+          showValidation(
+            "Please enter your phone number so we can confirm your appointment."
+          );
+
+
+          document
+            .getElementById(
+              "customerPhone"
+            )
+            .focus();
+
+
+          return;
+
+        }
+
+
+
+        /* Date validation */
+
+        if (!selectedDate) {
+
+          showValidation(
+            "Please select your preferred appointment date."
+          );
+
+
+          document
+            .getElementById(
+              "summaryCard"
+            )
+            .scrollIntoView({
+              behavior: "smooth",
+              block: "center"
+            });
+
+
+          return;
+
+        }
+
+
+
+        /* Time validation */
+
+        if (!selectedTime) {
+
+          showValidation(
+            "Please select an available appointment time."
+          );
+
+
+          document
+            .getElementById(
+              "summaryCard"
+            )
+            .scrollIntoView({
+              behavior: "smooth",
+              block: "center"
+            });
+
+
+          return;
+
+        }
+
+
+
+        /* Fill success modal */
+
+        document.getElementById(
+          "successService"
+        ).textContent =
+          selectedService;
+
+
+        document.getElementById(
+          "successBarber"
+        ).textContent =
+          selectedBarber;
+
+
+        document.getElementById(
+          "successDate"
+        ).textContent =
+          selectedDate;
+
+
+        document.getElementById(
+          "successTime"
+        ).textContent =
+          selectedTime;
+
+
+
+        /* Save booking information */
+
+        window.currentBooking = {
+
+          name: name,
+
+          phone: phone,
+
+          email: email,
+
+          instagram: instagram,
+
+          request: request,
+
+          service: selectedService,
+
+          barber: selectedBarber,
+
+          date: selectedDate,
+
+          time: selectedTime,
+
+          duration: selectedDuration,
+
+          price: selectedPrice
+
+        };
+
+
+
+        /* Show premium success modal */
+
+        successModal.classList.add(
+          "show"
+        );
+
+      }
+    );
+
+
+
+    /* =========================================
+       WHATSAPP
+    ========================================== */
+
+    const whatsappButton =
+      document.getElementById(
+        "whatsappButton"
+      );
+
+
+    whatsappButton.addEventListener(
+      "click",
+      () => {
+
+        const booking =
+          window.currentBooking;
+
+
+        if (!booking) {
+          return;
+        }
+
+
+        /*
+          Demo WhatsApp number.
+          Replace with actual business
+          WhatsApp number later.
+        */
+
+        const whatsappNumber =
+          "15552004455";
+
+
+        const message =
+
+`Hello GOLDEN BLADE!
+
+I'd like to confirm my appointment.
+
+Name: ${booking.name}
+Phone: ${booking.phone}
+Email: ${booking.email || "Not provided"}
+Instagram: ${booking.instagram || "Not provided"}
+
+Service: ${booking.service}
+Barber: ${booking.barber}
+Date: ${booking.date}
+Time: ${booking.time}
+Duration: ${booking.duration}
+Total: $${booking.price}
+
+Special Request:
+${booking.request || "None"}`;
+
+
+        const whatsappURL =
+          "https://wa.me/" +
+          whatsappNumber +
+          "?text=" +
+          encodeURIComponent(
+            message
+          );
+
+
+        window.open(
+          whatsappURL,
+          "_blank"
+        );
+
+      }
+    );
+
+
+
+    /* =========================================
+       REMOVE ERROR WHEN USER TYPES
+    ========================================== */
+
+    const nameInput =
+      document.getElementById(
+        "customerName"
+      );
+
+
+    const phoneInput =
+      document.getElementById(
+        "customerPhone"
+      );
+
+
+    nameInput.addEventListener(
+      "input",
+      () => {
+
+        if (
+          nameInput.value.trim()
+        ) {
+
+          nameInput.classList.remove(
+            "input-error"
+          );
+
+          document
+            .getElementById(
+              "nameError"
+            )
+            .classList.remove(
+              "show"
+            );
+
+        }
+
+      }
+    );
+
+
+    phoneInput.addEventListener(
+      "input",
+      () => {
+
+        if (
+          phoneInput.value.trim()
+        ) {
+
+          phoneInput.classList.remove(
+            "input-error"
+          );
+
+          document
+            .getElementById(
+              "phoneError"
+            )
+            .classList.remove(
+              "show"
+            );
+
+        }
+
+      }
+    );
+
+
+  </script>
+
+</body>
+</html>
